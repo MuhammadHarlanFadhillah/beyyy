@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owl Post</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased">
+
+    <audio id="bg-music" src="lagu.mp3" autoplay loop preload="auto" playsinline></audio>
+
+    <div id="scene-start" class="fixed inset-0 z-50 flex flex-col items-center justify-center gap-5 bg-[#0b101d]/70 transition-opacity duration-700">
+        <p class="cinzel-font text-[11px] md:text-xs tracking-[0.35em] text-[#c8b784]/80 uppercase">Owl Post Delivery</p>
+        <button id="btn-start" aria-label="Buka surat" class="owl-start-btn">
+            <img id="owl-start-img" src="owl.png" alt="Owl" class="owl-start-img">
+        </button>
+        <p class="cinzel-font text-[10px] md:text-xs tracking-[0.22em] text-[#c8b784]/70 uppercase">Klik Burung Hantu</p>
+    </div>
+
+    <div id="scene-intro" class="fixed inset-0 z-40 flex items-center justify-center hidden pointer-events-none">
+        <h1 id="intro-text" class="cinzel-font text-2xl md:text-4xl tracking-widest text-center text-white/90 opacity-0 filter blur-sm shadow-black drop-shadow-lg">
+            Seekor burung hantu membawa pesan untukmu...
+        </h1>
+    </div>
+
+    <div id="scene-envelope" class="fixed inset-0 z-30 flex items-center justify-center hidden">
+        <div id="envelope" class="envelope-wrapper relative w-64 md:w-80">
+            <svg viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full drop-shadow-2xl">
+                <rect x="10" y="10" width="780" height="480" fill="#e8d5b5" stroke="#8b5a2b" stroke-width="4"/>
+                <path d="M10 490 L400 250 L790 490 Z" fill="#dfc8a0" stroke="#8b5a2b" stroke-width="2"/>
+                <path d="M10 10 L400 250 L10 490 Z" fill="#d5b885" stroke="#8b5a2b" stroke-width="2"/>
+                <path d="M790 10 L400 250 L790 490 Z" fill="#d5b885" stroke="#8b5a2b" stroke-width="2"/>
+                <path id="top-flap" d="M10 10 L400 280 L790 10 Z" fill="#e8d5b5" stroke="#8b5a2b" stroke-width="4" style="transform-origin: top; transition: transform 1.5s ease-in-out;"/>
+                <circle id="wax-seal" cx="400" cy="270" r="40" fill="#8b0000" stroke="#5a0000" stroke-width="3" filter="drop-shadow(0px 4px 4px rgba(0,0,0,0.5))"/>
+                <text x="400" y="285" font-family="Cinzel, serif" font-size="40" fill="#d4af37" text-anchor="middle" font-weight="bold">H</text>
+            </svg>
+            <p class="text-center mt-8 cinzel-font text-[#c8b784] tracking-[0.2em] text-xs md:text-sm shadow-black drop-shadow-md uppercase">Klik Amplop Untuk Membuka</p>
+        </div>
+    </div>
+
+    <div id="scene-spell" class="fixed inset-0 z-[60] hidden pointer-events-none flex items-center justify-center">
+        <p id="spell-reveal" class="spell-reveal-text playfair-font">REVELIO</p>
+    </div>
+
+    <div id="scene-letter" class="fixed inset-0 z-20 flex items-center justify-center hidden glass-panel">
+        <div id="parchment" class="parchment-container w-[90%] md:w-[650px] h-[75vh] md:h-[85vh] p-8 md:p-12 opacity-0 transform scale-95 flex flex-col">
+            <div class="text-center mb-6 shrink-0">
+                <div class="w-16 h-[1px] bg-[#8b5a2b] mx-auto mb-2 opacity-50"></div>
+                <h2 id="salutation" class="playfair-font text-2xl md:text-3xl font-semibold italic text-[#5c3e1e] opacity-0"></h2>
+                <div class="w-16 h-[1px] bg-[#8b5a2b] mx-auto mt-2 opacity-50"></div>
+            </div>
+            
+            <div id="typewriter-container" class="custom-scroll flex-grow overflow-y-auto pr-2 text-lg md:text-xl leading-relaxed text-[#2c1e16] playfair-font pb-20">
+                </div>
+
+            <div id="continue-wrapper" class="absolute bottom-6 left-0 right-0 text-center opacity-0 hidden">
+                <button id="btn-next" class="magic-btn text-sm bg-[#fdf5e6] shadow-xl border-[#8b5a2b] text-[#5c3e1e] hover:bg-[#8b5a2b] hover:text-[#fdf5e6]">
+                    Lanjutkan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="scene-patronus" class="fixed inset-0 z-50 flex flex-col items-center justify-center hidden bg-[#0b101d]/22">
+        <h2 id="spell-text" class="cinzel-font text-3xl md:text-5xl text-white opacity-0 z-20 absolute top-1/2 -translate-y-1/2 tracking-widest"></h2>
+
+        <div id="photo-container" class="z-10 opacity-0 transform scale-90 transition-all duration-1000 mb-6">
+            <img id="ending-photo" src="" class="w-72 md:w-[26rem] h-auto rounded-lg shadow-[0_0_40px_rgba(186,225,255,0.4)] border-2 border-[#bae1ff]" alt="Memories">
+        </div>
+
+        <div id="final-text-container" class="z-20 text-center px-6 relative">
+            <h1 id="final-msg-1" class="playfair-font text-2xl md:text-3xl italic text-white mb-3 fade-text text-shadow-lg drop-shadow-md"></h1>
+            <h1 id="final-msg-2" class="playfair-font text-3xl md:text-4xl italic text-[#bae1ff] mb-5 font-semibold fade-text drop-shadow-[0_0_15px_rgba(186,225,255,0.8)]"></h1>
+            <p id="final-msg-3" class="cinzel-font tracking-widest text-sm md:text-base text-gray-300 fade-text mb-6 drop-shadow-md"></p>
+            
+            <button id="btn-restart" class="magic-btn restart-btn hidden opacity-0 mx-auto mt-5">
+                Kembali ke Awal
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
